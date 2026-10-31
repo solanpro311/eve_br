@@ -1,0 +1,462 @@
+<title>Стаки боя MTO2-2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Та же серия, что разборы B6-XE8 и 1I5-0V: светлый «планшет» с тремя цветами сторон, круги связей, моно-цифры. */
+:root{
+  color-scheme: light;
+  --bg:#e7eaee; --panel:#fbfcfd; --panel-2:#f1f4f7; --sunk:#dfe4e9;
+  --ink:#0f1419; --ink-2:#48545f; --ink-3:#77838f; --line:#d0d7de; --line-2:#bcc5ce;
+  --a:#2a78d6; --a-rgb:42,120,214;
+  --b:#eb6834; --b-rgb:235,104,52;
+  --c:#1baf7a; --c-rgb:27,175,122;
+  --o:#8b93a1; --o-rgb:139,147,161;
+  --loss:#c23a4b; --loss-rgb:194,58,75;
+  --shadow:0 1px 0 rgba(15,20,25,.04), 0 8px 24px -18px rgba(15,20,25,.5);
+  --f-display:'Unbounded','Golos Text',system-ui,sans-serif;
+  --f-body:'Golos Text','Segoe UI',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#0d1116; --panel:#141a20; --panel-2:#1a212a; --sunk:#0a0e12;
+    --ink:#e6ecf2; --ink-2:#a3b0bd; --ink-3:#78868f; --line:#232c35; --line-2:#313c47;
+    --a:#3987e5; --a-rgb:57,135,229;
+    --b:#d95926; --b-rgb:217,89,38;
+    --c:#199e70; --c-rgb:25,158,112;
+    --o:#6b7684; --o-rgb:107,118,132;
+    --loss:#e0596a; --loss-rgb:224,89,106;
+    --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -20px #000;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#0d1116; --panel:#141a20; --panel-2:#1a212a; --sunk:#0a0e12;
+  --ink:#e6ecf2; --ink-2:#a3b0bd; --ink-3:#78868f; --line:#232c35; --line-2:#313c47;
+  --a:#3987e5; --a-rgb:57,135,229;
+  --b:#d95926; --b-rgb:217,89,38;
+  --c:#199e70; --c-rgb:25,158,112;
+  --o:#6b7684; --o-rgb:107,118,132;
+  --loss:#e0596a; --loss-rgb:224,89,106;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -20px #000;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px; margin:0 auto; padding-block:0 80px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1{font-family:var(--f-display); font-size:clamp(28px,5.4vw,48px); font-weight:700; letter-spacing:-.02em; line-height:1.04; margin:12px 0 0; text-wrap:balance}
+h2{font-family:var(--f-display); font-size:clamp(17px,2.6vw,21px); font-weight:600; margin:0; text-wrap:balance}
+h3{font-family:var(--f-display); font-size:15px; font-weight:600; margin:0; line-height:1.3; text-wrap:balance}
+header{padding:44px 0 22px}
+.eyebrow{font-family:var(--f-mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-3)}
+.sub{margin:14px 0 0; font-size:16px; color:var(--ink-2); max-width:68ch}
+.sub b{color:var(--ink); font-weight:600}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+
+.sides{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:26px}
+.side{background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--k); border-radius:4px; padding:14px 18px; box-shadow:var(--shadow); min-width:0}
+.side .lab{font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--k)}
+.side .who{font-size:13.5px; color:var(--ink-2); margin-top:4px}
+.side dl{display:grid; grid-template-columns:auto 1fr; gap:3px 14px; margin:12px 0 0; font-size:13.5px}
+.side dt{color:var(--ink-3)}
+.side dd{margin:0; font-family:var(--f-mono); font-size:12.5px; text-align:right; font-variant-numeric:tabular-nums; color:var(--ink-2)}
+.side dd b{color:var(--ink); font-weight:500}
+
+nav.jump{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px}
+nav.jump a{font-family:var(--f-mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-2);
+  text-decoration:none; background:var(--panel); border:1px solid var(--line-2); border-radius:3px; padding:7px 11px}
+nav.jump a:hover{color:var(--ink); border-color:var(--ink-3)}
+nav.jump a:focus-visible, summary:focus-visible{outline:2px solid var(--a); outline-offset:2px}
+
+section{padding-top:52px}
+.shead{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; border-bottom:1px solid var(--line); padding-bottom:10px; margin-bottom:18px}
+.shead .tag{margin-left:auto; font-family:var(--f-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); white-space:nowrap}
+.lead{font-size:15px; color:var(--ink-2); margin:0 0 18px; max-width:76ch}
+.lead b{color:var(--ink); font-weight:600}
+
+/* ответ на вопрос про STAKAN */
+.verdict{background:var(--panel); border:1px solid var(--line); border-radius:4px; box-shadow:var(--shadow); padding:20px 22px; display:grid; gap:18px}
+.verdict .q{font-family:var(--f-display); font-size:clamp(18px,2.8vw,24px); font-weight:600; line-height:1.25; text-wrap:balance}
+.verdict .q .no{color:var(--b)}
+.vgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px}
+.vgrid > div{min-width:0}
+.vcap{font-family:var(--f-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px}
+.verdict p{margin:0; color:var(--ink-2); font-size:14px; max-width:70ch}
+.verdict p b{color:var(--ink)}
+
+/* карточки стаков */
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:14px 16px 12px; box-shadow:var(--shadow); display:grid; gap:10px; align-content:start; min-width:0}
+.card .top{display:flex; align-items:baseline; gap:10px}
+.card .pill{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--k); border-radius:2px; padding:1px 6px; flex:none}
+.card .n{margin-left:auto; font-family:var(--f-mono); font-size:12px; color:var(--ink-3); white-space:nowrap}
+.card .when{font-family:var(--f-mono); font-size:11.5px; color:var(--ink-3)}
+.kv{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 14px; font-size:13px}
+.kv div{display:flex; justify-content:space-between; gap:8px; border-bottom:1px dotted var(--line); padding-bottom:2px}
+.kv span{color:var(--ink-3)}
+.kv b{font-family:var(--f-mono); font-weight:500; font-size:12.5px; font-variant-numeric:tabular-nums}
+.kv b.bad{color:var(--loss)}
+.tags{display:flex; flex-wrap:wrap; gap:4px 6px; font-size:12.5px}
+.tags span{background:var(--panel-2); border:1px solid var(--line); border-radius:2px; padding:0 6px; color:var(--ink-2); white-space:nowrap}
+.tags span i{font-style:normal; font-family:var(--f-mono); font-size:11px; color:var(--ink-3); margin-left:4px}
+details{font-size:12.5px; color:var(--ink-2)}
+summary{cursor:pointer; font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3)}
+details .plist{margin-top:6px; line-height:1.5; max-height:180px; overflow:auto; overflow-wrap:anywhere}
+
+/* переключатели и круг */
+.bar{display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; margin:0 0 12px}
+.chip{display:inline-flex; align-items:center; gap:8px; font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2)}
+.dot{width:10px; height:10px; border-radius:2px; background:var(--k); flex:none}
+.toggles{margin-left:auto; display:flex; flex-wrap:wrap; gap:6px}
+.toggles .grp{display:flex}
+.toggles .grp button:first-child{border-radius:3px 0 0 3px}
+.toggles .grp button:last-child{border-radius:0 3px 3px 0; margin-left:-1px}
+button.tg{font-family:var(--f-mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-2);
+  background:var(--panel); border:1px solid var(--line-2); padding:7px 11px; cursor:pointer; transition:.12s}
+button.tg:hover{color:var(--ink); border-color:var(--ink-3)}
+button.tg[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink); position:relative; z-index:1}
+button.tg:focus-visible{outline:2px solid var(--a); outline-offset:2px}
+.stage{background:var(--panel); border:1px solid var(--line); border-radius:4px; box-shadow:var(--shadow); padding:8px 10px; overflow-x:auto}
+.stage svg{display:block; width:100%; height:auto; min-width:520px}
+.hint{font-size:13.5px; color:var(--ink-2); margin:12px 0 0; max-width:78ch}
+.hint b{color:var(--ink); font-weight:600}
+.edge{cursor:default; transition:opacity .12s}
+.node circle{cursor:default; transition:opacity .12s}
+.node text{pointer-events:none}
+.nlabel{font-family:var(--f-body); font-size:13px; fill:var(--ink)}
+.nsub{font-family:var(--f-mono); font-size:10.5px; fill:var(--ink-3)}
+.sublinks{margin-top:26px}
+.sublinks .cap{font-family:var(--f-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:10px}
+.links{display:grid; gap:6px}
+.lrow{display:grid; grid-template-columns:minmax(120px,260px) 1fr 62px; align-items:center; gap:12px; font-size:13.5px}
+.lrow .pair{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.lrow .pair .to{color:var(--ink-3)}
+.track{height:13px; background:var(--sunk); border-radius:3px; overflow:hidden}
+.fill{display:block; height:100%; border-radius:0 4px 4px 0; background:var(--k)}
+.lrow .v{font-family:var(--f-mono); font-size:12.5px; color:var(--ink-2); text-align:right; font-variant-numeric:tabular-nums}
+.lrow .v.own{color:var(--b)}
+
+/* таймлайн */
+.tl text{font-family:var(--f-mono); font-size:10.5px; fill:var(--ink-3)}
+.tl .rowlab{font-family:var(--f-body); font-size:12.5px; fill:var(--ink)}
+.tl .phase{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.1em; fill:var(--ink-2)}
+
+/* матрица */
+.mx{border-collapse:collapse; font-size:12.5px; font-variant-numeric:tabular-nums; min-width:640px}
+.mx th,.mx td{padding:6px 8px; text-align:right; border-bottom:1px solid var(--line)}
+.mx th{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); font-weight:500; vertical-align:bottom}
+.mx th.rh{text-align:left; font-family:var(--f-body); font-size:13px; letter-spacing:0; text-transform:none; color:var(--ink); white-space:nowrap}
+.mx td{font-family:var(--f-mono)}
+.mx td.z{color:var(--line-2)}
+
+footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-2)}
+footer p{max-width:82ch}
+footer code{font-family:var(--f-mono); font-size:11.5px; background:var(--panel-2); padding:1px 5px; border-radius:2px; border:1px solid var(--line); overflow-wrap:anywhere}
+#tip{position:fixed; z-index:20; pointer-events:none; opacity:0; transition:opacity .1s; background:var(--panel); color:var(--ink);
+  border:1px solid var(--line-2); border-radius:3px; padding:9px 11px; font-size:12.5px; line-height:1.5; box-shadow:0 12px 32px -14px rgba(0,0,0,.55); max-width:300px}
+#tip .t{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:3px}
+#tip b{font-variant-numeric:tabular-nums}
+@media (max-width:560px){ .lrow{grid-template-columns:minmax(0,1fr) 70px 54px} .kv{grid-template-columns:minmax(0,1fr)} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow" id="eyebrow">MTO2-2 · 31 октября 2026</div>
+  <h1>Кто в кого стрелял<br>в MTO2-2</h1>
+  <p class="sub" id="hsub"></p>
+  <div class="sides" id="sides"></div>
+  <nav class="jump">
+    <a href="#stakan">Домики HMP и Deepwater</a>
+    <a href="#stacks">стаки</a>
+    <a href="#flow">стак → стак</a>
+    <a href="#time">по времени</a>
+    <a href="#matrix">матрица</a>
+    <a href="#allys">альянсы</a>
+  </nav>
+</header>
+
+<main>
+<section id="stakan">
+  <div class="shead"><h2>Домики HMP и Deepwater</h2><span class="tag">проверка гипотезы</span></div>
+  <div class="verdict" id="verdict"></div>
+</section>
+
+<section id="stacks">
+  <div class="shead"><h2>Стаки</h2><span class="tag" id="stacksTag"></span></div>
+  <p class="lead">Стак — это пилоты, которые раз за разом стоят на одних и тех же килмылах. Алгоритм ничего не знает про альянсы: он видит только, кто с кем вместе добивал цели. То, что стаки сами собрались по альянсам и доктринам (100 Drake Navy в одном, 55 Махариелов в другом), подтверждает, что разбиение настоящее. Жертвы, которые ни разу не стреляли, посажены в стак своей корпорации.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section id="flow"></section>
+
+<section id="time">
+  <div class="shead"><h2>Бой по минутам</h2><span class="tag">урон каждые 2 минуты</span></div>
+  <p class="lead" id="timeLead"></p>
+  <div class="stage" id="tlStage"></div>
+  <p class="hint">Столбик вверх — урон, который стак нанёс за 2 минуты. Красная риска вниз — сколько ISK он в эти 2 минуты потерял. Шкала общая для всех строк. Наведи на столбик, чтобы увидеть цифры.</p>
+</section>
+
+<section id="matrix">
+  <div class="shead"><h2>Матрица урона</h2><span class="tag">по кораблям, без капсул, тысячи HP</span></div>
+  <p class="lead">Строка стреляла, столбец получал. Цветом выделен урон по врагу, своим цветом стороны; урон по своим стоит бледно — это смартбомбы и бомбы, которые цепляют своих.</p>
+  <div class="stage" id="mxStage"></div>
+</section>
+
+<section id="allys"></section>
+</main>
+
+<footer>
+  <p>Килмылы и разметка сторон: <code>br.evetools.org/newapi/br/composition/6ae650eb6bb78d6d6cbbe663</code>. Добивания (final blow) и координаты жертв: ESI <code>/killmails/&lt;id&gt;/&lt;hash&gt;/</code>, 374 из 374. Имена: ESI <code>POST /universe/names/</code>, корпуса и группы: EVE Ref.</p>
+  <p>Стаки: граф «пилот — пилот», ребро за каждый общий килмыл с весом 1/(n−1), где n — число стрелявших, чтобы большие блобы не склеивали всех со всеми. Капсулы выкинуты (их добивает кто попало), огонь по своим выкинут. Сообщества — Louvain, разрешение 1.6. Потом проверка сторон: альянс переезжает на другую сторону, если со своей стороной он больше воюет, чем стреляет вместе; так из команды B в A ушли <span id="movedList"></span>. Пилоты чужой стороны выносятся из стака в ближайший стак своей. STAKAN UNIVERSE везде посчитан как часть HOLD MY PROBS. «Вместе на килмыле» в блоке про Доминиксы считается, только если стак дал на этом килмыле не меньше 5% урона.</p>
+</footer>
+</div>
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+const C={"meta":{"kms":374,"pods":103,"pilots":721,"isk":144,"from":"19:41","to":"21:34","mod":0.607,"moved":{"#0":["?","B"],"DarkSide.":["B","A"],"Blades of Grass":["B","A"],"Solyaris Chtonium":["B","A"]},"BRteams":[["The Initiative.","Brotherhood of Spacers","Synergy of Steel","Fraternity.","Test Alliance Please Ignore","Itty Bitty Asteroid Committee","Hard Knocks Citizens","ZERG REBORN","Tilean Dominium","Northern Coalition.","Whiskers of Doom.","Death Legion of Capybaras","Ignore This.","Synergy of Support","Banderlogs Alliance"],["Deepwater Hooligans","HOLD MY PROBS","Legion of xXDEATHXx","STAKAN UNIVERSE","THE RUSSIA","Lunar Luminescence","DarkSide.","Diplomatic Incidents.","Solyaris Chtonium","Blades of Grass","Sportmodel","State War Academy"],["Wreckflix and chill","Ministry of Inappropriate Footwork","BorderZone","Next Frontier Peacekeeper"]]},"sides":{"A":{"pil":439,"lost":214,"lostISK":63790966239,"killISK":79821549841,"dealt":7516711},"B":{"pil":245,"lost":130,"lostISK":70029817990,"killISK":62275393250,"dealt":7641317},"C":{"pil":30,"lost":23,"lostISK":9871522701,"killISK":1208567389,"dealt":239529},"?":{"pil":7,"lost":7,"lostISK":321032202,"killISK":707828652,"dealt":34051}},"stacks":[{"i":0,"n":161,"side":"A","sides":{"A":161},"allys":[["The Initiative.",149],["Fraternity.",8],["Brotherhood of Spacers",4]],"ships":[["Drake Navy Issue",101],["Purifier",9],["Svipul",9],["Huginn",8],["Claymore",8],["Rook",6],["Cyclone Fleet Issue",4],["Flycatcher",3]],"kind":"stack","dealt":4342136,"dealtShips":4334385,"recv":2724103,"recvShips":2710965,"kills":89,"killsShips":65,"lost":104,"lostISK":10641008551,"killISK":52224137900,"lostShips":[["Drake Navy Issue",51],["Flycatcher",3],["Rook",3],["Sabre",2],["Svipul",2],["Lachesis",2],["Eris",1],["Cyclone Fleet Issue",1]],"from":"20:09","to":"20:56","onkm":67,"grids":[[0,3677484],[3,432277],[4,223897],[-1,720]],"rawTop":"The Initiative.","label":"Initiative · Drake Navy","short":"Initiative DNI","b":"a","pilots":["1234nin4321","Aaron Schwarzen","Adalle Hariere","ADONISS PRIMUSS","Adrianna Ash","Aelen Annages","Aiden Malcolm","Akane Kiyokoo","Aktarus","Alex Jantex","andjelka","aquaternion","Arctu Lawaout","ardware","Arthur Hellsing","Asanas Mikakka","Astro Bourne","Aulma Kusoni","Blabert","Blood Colored","Bongalonga","Buv Annages","Cforce Erquilenne","Charlie Tuzi","Chriss Toronto","Christopher Loclanne","Co0kies Emolized","Compassio","Corsa Cor","Craine Dexy","Cyrise","Dante Orlenard","DDosing Notme","Dominik Dark","Don Adi","Dook Solette","Dorin Dalia","Dux Mortis","El cascador258","Elarik Iskia","Emyrz0n","Ephrryn von Steel","Feleon Galaarq","First Commander'Riker","Frau Mayer","Geoff W","Ghostship of Leng","Girithon","Gunnyx DDguns","h1no","Huckton Hilanen","Inquisitor Valdan","ironhatchet","Ishanari Oriki","Izanis","Jack ONail Ernaga","Jax5on Avalhar","jenadora","JJ Joker","joey117","JoJo Hebb","Juno Sekushi","k021k","Karacal Aivoras","Kayn Stark","Kelan Tarker","kerafyrmm","Kirrino","Kiyota Hatakani","KlusterNine","kribensis74","Kryptik Kai","Kubla Kain","Kumaa Akachi","Langz","Latghellet Deninard","Lecedrix","Levers","Locutus Tyrannos","lord nater","Lord Uldros","Losss","lothia","Madarano Dred","MAGICLUV","Majical Trevor","Maracho","Mardwen Gry","Maryntime","Max Minogue","Mira Anderson","Missy Saisima","Mist Amatin","Mobius USAGI","Morpheus Noctis","Mushroomcloud","Namaxa Skurvensen","Niki Koskanaiken","Nina Callari","Ninjajolic","Nitus","Nocturnal Mist","Norhell","nye 2k","Nylar Todako","Obss","Ohren Musana","Onoras Tawate","Parmala Aurilen","Philipp Motsu","Phornee Kayter","PredLaw","Progray","Qookie","qwerter1 rehdhdrhdhhd","Rabe flieger","Raeline Alnora","Raykor","Raz0r267","RedDragonZ","Rikki Bigg","Rolmander Issier","Rondis Hammer","Rounon Dax","S4rg0n","Saba Cadelanne","Sarge372","Sasha Makenen","Sayako Kurata","Scamanders ship-eating Niffler","Scott Gaterau","Serric","ShepherdE","Sirboni","Slanzh'va","soul922","SpaceCrusher","Spartan 23","Spawn Hebb","SpectreEnforcer","Spirited","sral","Stannis Hinken","starmuff","Steve Hluskan","Tazarak theDeceiver","tink vader","TiTi ReZZ","Torvin Eisenfaust","Toto Avalhar","Trip Over","Tritan x","Troilem","U'llic","Unkas","Velundr","XO Sauce","YStriker18","Yugao Alland","Zigam","Zitto Animale"]},{"i":1,"n":116,"side":"B","sides":{"B":116},"allys":[["HOLD MY PROBS",84],["Legion of xXDEATHXx",27],["THE RUSSIA",3],["Lunar Luminescence",1],["Deepwater Hooligans",1]],"ships":[["Apocalypse Navy Issue",69],["Oneiros",12],["Apocalypse",7],["Guardian",4],["Osprey Navy Issue",3],["Moros Navy Issue",3],["Sabre",2],["Maulus",2]],"kind":"stack","dealt":3725141,"dealtShips":3716723,"recv":4112557,"recvShips":4102570,"kills":96,"killsShips":73,"lost":94,"lostISK":36437004867,"killISK":31345029179,"lostShips":[["Apocalypse Navy Issue",30],["Oneiros",9],["Maulus",4],["Guardian",4],["Minmatar Shuttle",3],["Sabre",2],["Eos",2],["Apocalypse",2]],"from":"19:45","to":"20:52","onkm":91,"grids":[[0,3568372],[3,138321],[2,4967],[-1,3863]],"rawTop":"HOLD MY PROBS","label":"HMP + xXDEATHXx · Apoc Navy","short":"HMP Апоки","b":"b","pilots":["Adler BC","AdMiRaLMECH Hakuli","Adolf Bubuleh","Aftandil Kasatonof","Agarich Aldent","agarich3","AJIEKC Tsero","Aksi Spirit","Al Borean","Alex Fvfy","Alex Ketorol","AlexandrStaff","Alpha Sel","Alt Shi","Andrey Anatolevich","Angel Hinken","Anjela Fareli","Anunnaki Usr","Apache86","Batan48","BloodyKell","Bobby Falcon","BOGI37","BolT Vintov","BRAKOHbER","Carol86","Chilli Beans","Cosmo Slav","DaniilFox","Danil Otsolen","Dimusha","Drop Me Please","DrucargC","Echo Ishizuchi","Eliandra","Felicity Kugen-Fox","Florisel 1","Gen Legion","gobleen","Greg Deminion","griha Darine","Heton Bazz","Hokechi Tolen Purvanen","HondaCBR600RR","Hzotdelgang","IceBleeD Toralen","iFrostik","ik ke","Infernal Zero","Intos67","Ivan Rumkin","Jimm DeCrizz","John G0rd0n","Kannen Pava","Kannen Sarain","Karat Gross","Kassa Nech","Katar Keir","khatius","KolyaTort","Koxik Allier","KUZEN1972","lapa sun","Life Nakema","Lilith Mistress","Magnik18","Maraderz","MeckaJIuH","Misha Sily","moblo","Mokay Orti","mrTvix","Muellairault Nardieu","Nass Cheba","Nekey","NIKOLAs77S","Nomad Hinken","Nonstop7-A1","Nt-Ranger","Oleksandr Stetsuk","Pafnutiy","Pifona Ellecon","Ployka","Polosatiy Taz","Ranwar","Red Carry","Rio Flame","Rodion Larionov","Rosich from Lysitan","RUSTEREM77","Sam Finn","Sento Orman","Shan Ki","Shitao","Shiti Boswa Lazair","SHok By","Shultz Furer","Sin Papinogo Druga","Starfoxik Alexander","sultanov","Susanin Vanya","The SKM","tolstyk","tresh12","TupuOH","Viktor -valar morghulis","voblo","Void Dron3","Winter Madness","XaosSs","YakudzaSan2","Yura Ersh","Zand Berahond","Zhmurila"]},{"i":2,"n":112,"side":"B","sides":{"B":112},"allys":[["Deepwater Hooligans",105],["HOLD MY PROBS",6],["Diplomatic Incidents.",1]],"ships":[["Machariel",55],["Zarmazd",6],["Heretic",5],["Moros Navy Issue",4],["Devoter",4],["Purifier",4],["Guardian",3],["Bhaalgorn",3]],"kind":"stack","dealt":3564765,"dealtShips":3513937,"recv":2354850,"recvShips":2218393,"kills":61,"killsShips":42,"lost":29,"lostISK":29159006178,"killISK":28384431294,"lostShips":[["Heretic",4],["Machariel",3],["Vindicator",3],["Dromi II",2],["Purifier",2],["Nestor",2],["Scorpion",1],["Nemesis",1]],"from":"19:41","to":"20:58","onkm":78,"grids":[[0,3486453],[4,42434],[3,21880],[-1,4738]],"rawTop":"Deepwater Hooligans","label":"Deepwater · Machariel","short":"Deepwater Махи","b":"b","pilots":["0Musky","Agrippa Arkaral","Alexa Kaalakiota","Alexander Blessed","Amanda Cherufe Kumamato","Amir GHAN","Android Reaper","Andrzej Dupad","Anna Tarkovsky","backflipMUSE Isu","Baka Mitai","Bean Flickr","Beka Talyndor","Black Lancelot","blood144","Bojacx Bison","Bowboy686 Renalard","BulletBob Onzo","Calumina Zero","Calvin Renalard","Camille Avanti","CaptainSarge","Carrying Our Song","Celebran","Coffee Kaladent","Cpt Satoshi","CptSarge","Credit Card Crusader","Cyclone71","Cytheera","D1sparity","Dallasss","Dani Lizardov","Daniel Talyndor","darkfire Joringer","Dathmaxx","Declyn Archer","Double G","Durin XV","Dyxakser en Thielles","Earendil CJB","Ezehiel Goldbaum","Flamie","Friar Vigfus","FrozenHam Thiesant","Galtiner","Hatai Khardula","Heretics Must Die","Hoof Hearted","Hurtt","IIM","ingalo","Intos87","Jaedes","Jago Sevatrion","JaroslawKot Kaczynski","Jaxson Firestone","Julie Issier","KAA","Kalened","Kovy Viliana","Krak Bison","Krimson Serenity","Kylie Albosa","lancelott","Malek Reaver","Mapache Doom","Matthimeus","Matux Aldeland","Miriam Hanomaa","myEpic2","Nalani Firestone","Nathan Steeles","Nervous Energy","Nihlius Bloodstone","Nokin Niam","Nolx Tsasan","Papalopogos","Peng Wei","Pimp Cane","Platon Kennedy","PuttPutt","Randolph Vangor","Reaper Deathe","rebelricco Yvormes","Robyn lynx","Roset Tali","Rothar Luke","Safe Cyno Fleet","Sara Blooper","Sharmaine Elwes","Shiny Diamond","Siege On Land","Sif Brynhildr","Sir oberon","Soul Surfer","Soverata","Stara Isu","T zhong","Tali Clade","Tiberius Varis","Troy Solette","Turmfalke Von-Einzbern","Tzionn","Vikk Ing","Wendal Sarum","WhoFlungPooAtYou","XtacyInHD","Yabbiy","Yeldarb6","Zar's Rage","zeus althenian"]},{"i":3,"n":108,"side":"A","sides":{"A":108},"allys":[["Synergy of Steel",73],["Fraternity.",22],["Brotherhood of Spacers",5],["Test Alliance Please Ignore",4],["DarkSide.",1],["Solyaris Chtonium",1],["Northern Coalition.",1],["Blades of Grass",1]],"ships":[["Nightmare",65],["Jackdaw",8],["Scimitar",6],["Hyena",6],["Nighthawk",3],["Hound",3],["Flycatcher",3],["Sabre",2]],"kind":"stack","dealt":1895342,"dealtShips":1889797,"recv":2421545,"recvShips":2415521,"kills":43,"killsShips":30,"lost":54,"lostISK":34404705947,"killISK":23798480825,"lostShips":[["Nightmare",17],["Jackdaw",4],["Flycatcher",3],["Hyena",3],["Sabre",2],["Dramiel",2],["Scimitar",2],["Punisher",1]],"from":"19:42","to":"20:40","onkm":48,"grids":[[0,1869949],[-1,18292],[1,1556]],"rawTop":"Synergy of Steel","label":"Synergy of Steel + Frat · Nightmare","short":"SoS Найтмары","b":"a","pilots":["almidy solo","Amarayutsu","Anne McDonald","Astaroth612","Atros Meda Omaristos","Baylnz","Bazalazer","Benzgy","Blood Awakening","Caito Itho","Captain-SK","Carola Muutaras","Caymia Kazuma","Chikin Thrace","corridan","Cybez Audrine","Cypher775","cyphon666","Daboth Payton","Dade Hades","dArkness IR","DarkTr00per419","Deidealizer","Der2Mann","Dezzella Shakenspear","Dragon197","Dunsche Kofood","ED FU","Erik Thule","Erzus Fahrtas","Fif Lord Toni","Gurkennase","Halsab Snyderin","Hardstylejuncky VanBass","Holger Ecobruar","Hoshoda","Intaktus","Jack Kuha","Jacky Nolen","Jesse Tarun","Joe Johanson","Johann Fausten","John Perseus","Kai Toruk","Kalanius","Karmen Jell","KAXi","Kayjay Crashman","KayLe","Khan1 FromKhan","Klaus Toruk","Kriger","Lalrith","Leah2215","Leah2216","Leahcim Vinjen","Leroy San","Lexxy K","Mad Nolen","Malachi Lochan","Matt Spree","Mazoro Ezden Boma","Mic Foxdale","MJ Incognito","MundM Rotineque","Narzim Tazinas","Navarho","Nicolae Paracelsus","Nicolas Trismegistos","Nidaros Hvide","Noxany","Nr X47","Oneill HGM","Othellia","Primm","Ragna der Rote","Ramrag","Rev Jakuard","Revenant223","Rouketas The 2nd","Rus Kicks","Scarlet Khardula","Sesentha Avada","Shanqor","Shino","Sieku","Silver Armer","Sisteria SASKIA","Sno- Chan","Suldok","Sydnierose","tan4a Kahoudi","Teyla Taron","Thardao","Tiara Carsin","TITMILK13","Tjandra Toruk","TOONII","Tuisk","Twinkel Bell","Vexor Nerd-Issue Thellere","Vursing","waxenjoodaddy","Weteef","Wolter RUS","Yorrick Nolen","Zapp Benders","Zeepbel"]},{"i":4,"n":91,"side":"A","sides":{"A":91},"allys":[["Brotherhood of Spacers",78],["Itty Bitty Asteroid Committee",3],["ZERG REBORN",2],["Hard Knocks Citizens",2],["Tilean Dominium",2],["Ignore This.",1],["Death Legion of Capybaras",1],["Synergy of Steel",1]],"ships":[["Tempest Fleet Issue",48],["Oneiros",15],["Hecate",3],["Damnation",3],["Vindicator",3],["Bhaalgorn",2],["Claw",2],["Hurricane Fleet Issue",1]],"kind":"stack","dealt":665335,"dealtShips":525820,"recv":2673663,"recvShips":2669997,"kills":28,"killsShips":14,"lost":45,"lostISK":18301099413,"killISK":1698984744,"lostShips":[["Tempest Fleet Issue",12],["Oneiros",4],["Hecate",3],["Claw",2],["Heretic",2],["Hound",1],["Damnation",1],["Nightmare",1]],"from":"19:43","to":"20:49","onkm":22,"grids":[[0,582377],[-1,76231],[4,1341],[2,0]],"rawTop":"Brotherhood of Spacers","label":"BoSp · Tempest Fleet","short":"BoSp Темпесты","b":"a","pilots":["Aaron Seivad","Ahura Kalord","albertguzman","Alexander Salazar-Cole","Ayada Muutaras","Azhu","Azxile","Bart Ottig","Biovail","Bjoggi Adtur","Caldari Citizen 896297357","Cardinal 28","Cassey Horizon","Choad goblin","Chris en Distelle","Cinnamona","Comrade Gritty","Crawdaddy","Curatus Accumulus","Daskil Aideron","David Dyran","David Jordan Price","David Keikira","Den Bilzerian","Diastylis","Dom Pike","Donnie Cross","Draemian Isagar","Durie","ekaoni","EliteAlpha 117","Eta Issue","Eugene Killuminati","Febfreezio Donghammer","Ginitro Sarain","Gurista Pioneer","Hauska","Hotkot-ua","IdCuddleYouHARDAF","Jayne GX","Jayybone","Jean Andre","Kai Maleko","Kaleb Z","Kill Zone","killjill12378","Klein M","Koko Nut","Ladislav Ladista","laluger2","Leonidas Snow","Lyra Auxilium","Lyra tertius","Maigo Saitama","Maskim Xul","Meghan Risalo","Mellisa Cameltoe","Mia Saitama","Miles Augustine","mr Darius","Nick Ezinem","Oberst Heleneto","Occultus Onzo","Odyssey 2049","Oleg Kozakov","Par0dy","Prae Mabata","Priester Ferrera","Priester Tu","Qasvyor","Reaz Hossain","Rhinehammer Q","Rig or arden","Rig V","Rigger Mortice","Romausen","Ruscoe","Shasokias Tour","Sheila Gack","Snogud Gack","T'Amber Alland","TehHouse","Tim Hauler","Unseen Onzo","WillusKillus","Xelic Pulsar","Xretes","XxFearMeXx","ZagadyH","Zes Shana","Zira Arjar"]},{"i":5,"n":17,"side":"B","sides":{"B":17},"allys":[["HOLD MY PROBS",16],["Deepwater Hooligans",1]],"ships":[["Dominix",12],["Scorpion",1],["Paladin",1],["Damnation",1],["Hyena",1],["#0",1]],"kind":"stack","dealt":351411,"dealtShips":350950,"recv":220538,"recvShips":220182,"kills":27,"killsShips":24,"lost":7,"lostISK":4433806945,"killISK":2545932777,"lostShips":[["Dominix",3],["Paladin",2],["Damnation",1]],"from":"19:41","to":"20:43","onkm":28,"grids":[[0,319247],[3,31703],[-1,0]],"rawTop":"STAKAN UNIVERSE","label":"HMP · Dominix (STAKAN)","short":"HMP Домики","b":"b","pilots":["AAstre","Amanda Moonpire","Arisha Moon","Athena Magnalibris","Brandi Moonpire","Candy Moonpire","DONT TOUCH MOONPIRE","Katie Moonpire","Khumar Chipri","Loleri Nosha","Manabout Town","Olivia Moonpire","OWNED by MOONPIRE","Ping ChoLee","Tiffany Moonpire","TimRod V","Ziggie Doe"]},{"i":6,"n":30,"side":"C","sides":{"C":30},"allys":[["Wreckflix and chill",17],["Ministry of Inappropriate Footwork",6],["BorderZone",4],["Next Frontier Peacekeeper",3]],"ships":[["Apocalypse Navy Issue",17],["Maulus",3],["Damnation",2],["Zarmazd",2],["Falcon",1],["Vindicator",1],["Huginn",1],["Arazu",1]],"kind":"stack","dealt":239529,"dealtShips":238459,"recv":845561,"recvShips":842484,"kills":10,"killsShips":8,"lost":23,"lostISK":9871522701,"killISK":1208567389,"lostShips":[["Apocalypse Navy Issue",7],["Pilgrim",1],["Vindicator",1],["Maulus",1],["Falcon",1],["Huginn",1],["Arazu",1],["Zarmazd",1]],"from":"20:10","to":"20:30","onkm":11,"grids":[[0,238459]],"rawTop":"Wreckflix and chill","label":"Wreckflix и Ко · Apoc Navy","short":"Wreckflix Апоки","b":"c","pilots":["Aender MK2","Artack35","Atlas Lyka","Atropos Fatum","Azokathe Shin'rae","Carry Austrene","Counter Shinrae","Duwireka","Fred100L","Furius Nakar","grognasse de minage","Hazairthy The Second","Hazairthy The Third","Hirozen Nite","Jervis Tetch","Karso GasGasGas","Larkin Ice-Hand","Luyi Luyi","Mdm Suboa","Milleni","okyne vhinte","pokapetass Depandora","Popey02","Pregma","Readus","Seraphina Otomeya","shacouillasse","shawox puche","TheKiff","Unnamed Frozenhearth"]},{"i":7,"n":79,"side":"A","sides":{"A":79},"allys":[["Fraternity.",68],["Northern Coalition.",7],["Test Alliance Please Ignore",2],["Banderlogs Alliance",1],["Blades of Grass",1]],"ships":[["Crusader",28],["Raptor",13],["Claw",11],["Taranis",7],["Vigil",3],["Hyena",3],["Kitsune",2],["Retribution",2]],"kind":"stack","dealt":85441,"dealtShips":83297,"recv":20062,"recvShips":18980,"kills":8,"killsShips":4,"lost":10,"lostISK":362980793,"killISK":2099946372,"lostShips":[["Crusader",2],["Raptor",2],["Viator",1],["Claw",1],["Taranis",1]],"from":"20:20","to":"20:37","onkm":4,"grids":[[0,81853],[-1,1444]],"rawTop":"Fraternity.","label":"Fraternity · фригаты","short":"Frat фригаты","b":"a","pilots":["Actofnoob","Airluonear noder","Arseniy Shyklin","banglord","BateXio","BodeanZ","Boom Tucker","Boyu Sun","Cyclone Air","Cygnus Rei","Djania Khan","Dobi Mecata","Dr Rebot","Droidekas","Dunav","Enes Velicanstveni Kazic","Entaku Sun","Erkumis Foresight","Famouse","Famouslol","forcepanda","Freddy F","Freyja-Rose Ares","fxysuff","Gardamyr Strongcloud","Giperboreec","Gorodina","Inqy","Ironfist V","Jack Scarr","Jenuariya","JOCKER191","JoeJack420","Jubah Musanji","KeepHeathyKeepWorking","KIddsis Wang","Kreoline QT","Krumholz","Kyrsan","l Mabata","lonely boat","m4ster112","Major Dysfunktion","Malleus Sicarius","Manazuru","Mike 187","Moha Han","Mojihito","MORDEOWO","MSILG33 Star","Orig4mi","OVTAVIA James","PARTISAN116","Platinum Hunter","Ralraugh Aldurald","rocky subspace","Rubytree","Schwarzer Regena","Shade Shadess","ShineALT01","SilverDragonBlood","SmokeyUK","spaceface4","Stas Ekb","swordfish67","szczyglak szczygiel100","tommy 3000","Tong Lazair","Torsten A Manske","Truvash","van Wolfenstein","Vaulalalala","Vegatron SHC","vitez koja","Xaivada Skywalker","Xiao bai2","Yoluhaluka Fax","Yoluhaluka GA","Yorshka AGIOS"]},{"i":8,"n":0,"side":"A","sides":{"B":758,"A":527699},"allys":[["#0",1],["Brotherhood of Spacers",1]],"ships":[["Brotherhood of Spacers · Fortizar",345808],["Brotherhood of Spacers · Standup Shadow",181891],["#0 · Tower Sentry Drone II",758]],"kind":"struct","dealt":528457,"dealtShips":528457,"recv":42434,"recvShips":0,"kills":0,"killsShips":0,"lost":1,"lostISK":81171535,"killISK":0,"lostShips":[["Standup Mantis II",1]],"from":"19:58","to":"20:30","onkm":3,"grids":[[4,345808],[3,181891],[-1,444],[0,314]],"rawTop":"#0","label":"Фортизар BoSp","short":"Фортизар BoSp","b":"a","pilots":[]},{"i":9,"n":7,"side":"?","sides":{"?":4,"B":2,"A":1},"allys":[["The Tuskers Co.",3],["Absolute Honor",1],["Sportmodel",1],["Synergy of Support",1],["State War Academy",1]],"ships":[["Hurricane",1],["Augoror Navy Issue",1],["Ares",1],["Basilisk",1],["Sabre",1],["Malediction",1],["Guristas Shuttle",1]],"kind":"other","dealt":34051,"dealtShips":32248,"recv":16295,"recvShips":14981,"kills":12,"killsShips":8,"lost":7,"lostISK":321032202,"killISK":707828652,"lostShips":[["Sabre",1],["Basilisk",1],["Guristas Shuttle",1],["Ares",1]],"from":"20:45","to":"21:34","onkm":8,"grids":[[3,17110],[0,8064],[-1,4340],[5,2734]],"rawTop":"The Tuskers Co.","label":"Прочие","short":"Прочие","b":"o","pilots":["6ZJ SC","Dreidon Bloodborn","Kelon Darklight","QuickSwipe Collier","sahsonka","Scata1","Zich Masor"]}],"tl":{"t0":1793475680000,"bin":120000,"nb":57,"dmg":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,182219,292498,797180,309877,303412,260915,114066,538189,353601,334236,298075,153983,326844,76277,434,273,50,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,133110,208511,7060,293993,534848,164246,255454,0,4967,0,0,141,195900,309047,50504,94524,121326,83287,22425,296191,39918,166434,367979,125035,110033,1408,3204,131732,479,2163,0,0,0,1222,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[492077,583572,289900,392991,446847,434663,437404,73311,145604,0,1376,606,0,125,54808,72094,13519,18266,20377,3570,3360,29452,0,42434,0,0,0,0,925,0,0,1131,0,0,0,1720,460,0,4173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[133034,188246,16645,387153,10360,422277,258602,372353,1556,461,0,461,0,0,14,146,18080,118,198,7721,7855,1912,0,18893,15177,9019,16397,6146,519,675,863,0,0,461,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,134186,14892,250177,3697,28,75621,102542,0,0,0,461,0,0,0,0,66062,0,1662,0,0,5121,0,461,1341,919,1276,0,1267,0,0,3035,461,0,1204,461,461,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[86,0,0,0,0,22788,7042,38049,1501,0,556,8335,0,7820,0,0,18565,33554,46342,6260,8536,2247,43846,3275,70906,0,0,0,0,31703,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,37725,87887,37500,44604,698,1404,0,461,0,2045,27057,0,0,0,0,0,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,11,71,20,2853,74999,21,26,0,6643,342,433,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,444,0,0,0,0,0,0,0,181891,0,0,0,0,345808,0,0,314,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2510,2666,0,0,0,0,2734,461,0,4340,0,17110,464,0,0,0,780,1295,436,0,0,0,0,0,0,1255]],"loss":[[0,0,0,0,0,0,0,0,0,0,0,0,0,258105847,1532860547,1605384613,606586102,573904975,706963282,473885044,197885691,1386776110,326149295,649115810,639209323,502472369,511719053,30000,10000,634454403,30000,10000,0,0,0,35436087,20000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,71863371,3282804568,2772675139,2791433990,0,0,0,20000,0,0,631890548,1715117765,4100574225,1882398287,2184495550,850983240,1173723085,6977154598,0,3581903860,1077464122,1487926034,1643615067,185442960,6881320,20000,20000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16144649,10000,0,0,0,0,0,0,2442489],[0,2361886077,70680785,4961716287,59257424,3342407429,10000,2670798192,0,0,0,0,0,0,1858091561,0,8930024233,2352450307,32865092,68381238,0,2450437553,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,143888665,4329127960,1400682790,10967485775,15956331402,1144216264,73534386,0,69652922,0,0,10000,0,0,0,0,0,0,0,0,0,0,0,10000,0,0,0,0,0,236405135,38248320,10000,0,0,0,45092328,10000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[2881631018,1758757703,2930523207,2481480130,2983968282,0,0,2570373958,1446460328,10000,13679,77322866,14383,0,0,0,0,397038,73000705,126350492,132457411,26726838,0,0,0,0,0,0,264996084,10000,0,0,0,0,0,0,0,0,119889148,0,107025864,0,316134484,10000,0,0,0,3535795,10000,0,0,0,0,0,0,0,0],[2144409840,0,0,0,0,0,0,0,0,0,0,0,0,0,367190660,10000,0,0,0,0,0,0,0,0,1922196445,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,317629609,0,0,0,0,0,0,0,1994097469,0,0,1051548062,1849141844,0,1063566548,3464397351,131131818,0,10000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,184202601,0,0,0,0,73035015,67815417,0,20000,0,0,0,0,37897760,10000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81171535,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,66645548,0,0,0,0,0,0,0,0,0,0,0,210295207,0,0,0,10000,14573830,10000,0,0,0,0,0,0,0,0,0,0,0,0,0,29487617,10000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]},"co":[[0,1,7,12,1,0,0,1,2,0],[1,0,28,2,1,13,5,0,1,0],[7,28,0,4,3,3,1,0,1,0],[12,2,4,0,7,1,0,0,0,0],[1,1,3,7,0,1,0,0,0,0],[0,13,3,1,1,0,2,1,0,0],[0,5,1,0,0,2,0,0,0,0],[1,0,0,0,0,1,0,0,0,0],[2,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]],"Md":[[1316,2688896,812172,7,0,13869,814538,3587,0,0],[2100407,1867,0,864044,741807,2940,1185,0,0,4473],[130080,36928,32798,1480643,1824715,0,2753,5893,0,127],[557,794021,916118,3235,51979,123494,0,0,0,393],[0,231498,275414,14669,0,0,0,3035,0,1204],[250659,0,0,44569,22623,4908,23310,4881,0,0],[227393,0,0,0,0,0,698,1584,0,8784],[239,1444,0,0,6643,74971,0,0,0,0],[314,345808,181891,444,0,0,0,0,0,0],[0,2108,0,7910,22230,0,0,0,0,0]],"sDmg":{"nodes":[{"id":"S0","n":"Initiative DNI","full":"Initiative · Drake Navy","t":"A","b":"a","d":4342136,"r":2724103,"ds":4334385,"rs":2710965,"k":89,"l":104,"pil":161,"isk":10.64,"ki":52.22},{"id":"S1","n":"HMP Апоки","full":"HMP + xXDEATHXx · Apoc Navy","t":"B","b":"b","d":3725141,"r":4112557,"ds":3716723,"rs":4102570,"k":96,"l":94,"pil":116,"isk":36.44,"ki":31.35},{"id":"S2","n":"Deepwater Махи","full":"Deepwater · Machariel","t":"B","b":"b","d":3564765,"r":2354850,"ds":3513937,"rs":2218393,"k":61,"l":29,"pil":112,"isk":29.16,"ki":28.38},{"id":"S3","n":"SoS Найтмары","full":"Synergy of Steel + Frat · Nightmare","t":"A","b":"a","d":1895342,"r":2421545,"ds":1889797,"rs":2415521,"k":43,"l":54,"pil":108,"isk":34.4,"ki":23.8},{"id":"S4","n":"BoSp Темпесты","full":"BoSp · Tempest Fleet","t":"A","b":"a","d":665335,"r":2673663,"ds":525820,"rs":2669997,"k":28,"l":45,"pil":91,"isk":18.3,"ki":1.7},{"id":"S5","n":"HMP Домики","full":"HMP · Dominix (STAKAN)","t":"B","b":"b","d":351411,"r":220538,"ds":350950,"rs":220182,"k":27,"l":7,"pil":17,"isk":4.43,"ki":2.55},{"id":"S6","n":"Wreckflix Апоки","full":"Wreckflix и Ко · Apoc Navy","t":"C","b":"c","d":239529,"r":845561,"ds":238459,"rs":842484,"k":10,"l":23,"pil":30,"isk":9.87,"ki":1.21},{"id":"S7","n":"Frat фригаты","full":"Fraternity · фригаты","t":"A","b":"a","d":85441,"r":20062,"ds":83297,"rs":18980,"k":8,"l":10,"pil":79,"isk":0.36,"ki":2.1},{"id":"S8","n":"Фортизар BoSp","full":"Фортизар BoSp","t":"A","b":"a","d":528457,"r":42434,"ds":528457,"rs":0,"k":0,"l":1,"pil":0,"isk":0.08,"ki":0},{"id":"S9","n":"Прочие","full":"Прочие","t":"?","b":"o","d":34051,"r":16295,"ds":32248,"rs":14981,"k":12,"l":7,"pil":7,"isk":0.32,"ki":0.71}],"edges":[{"f":"S0","t":"S0","d":1316,"ds":1316},{"f":"S0","t":"S1","d":2694328,"ds":2688896},{"f":"S0","t":"S2","d":812215,"ds":812172},{"f":"S0","t":"S3","d":7,"ds":7},{"f":"S0","t":"S5","d":14225,"ds":13869},{"f":"S0","t":"S6","d":815751,"ds":814538},{"f":"S0","t":"S7","d":3854,"ds":3587},{"f":"S0","t":"S9","d":440,"ds":0},{"f":"S1","t":"S0","d":2106026,"ds":2100407},{"f":"S1","t":"S1","d":1867,"ds":1867},{"f":"S1","t":"S3","d":865430,"ds":864044},{"f":"S1","t":"S4","d":742726,"ds":741807},{"f":"S1","t":"S5","d":2940,"ds":2940},{"f":"S1","t":"S6","d":1679,"ds":1185},{"f":"S1","t":"S9","d":4473,"ds":4473},{"f":"S2","t":"S0","d":132434,"ds":130080},{"f":"S2","t":"S1","d":37852,"ds":36928},{"f":"S2","t":"S2","d":33736,"ds":32798},{"f":"S2","t":"S3","d":1483901,"ds":1480643},{"f":"S2","t":"S4","d":1825635,"ds":1824715},{"f":"S2","t":"S6","d":2753,"ds":2753},{"f":"S2","t":"S7","d":5893,"ds":5893},{"f":"S2","t":"S8","d":42434,"ds":0},{"f":"S2","t":"S9","d":127,"ds":127},{"f":"S3","t":"S0","d":2878,"ds":557},{"f":"S3","t":"S1","d":795331,"ds":794021},{"f":"S3","t":"S2","d":916579,"ds":916118},{"f":"S3","t":"S3","d":3696,"ds":3235},{"f":"S3","t":"S4","d":52558,"ds":51979},{"f":"S3","t":"S5","d":123494,"ds":123494},{"f":"S3","t":"S9","d":806,"ds":393},{"f":"S4","t":"S0","d":922,"ds":0},{"f":"S4","t":"S1","d":232881,"ds":231498},{"f":"S4","t":"S2","d":410429,"ds":275414},{"f":"S4","t":"S3","d":15127,"ds":14669},{"f":"S4","t":"S6","d":461,"ds":0},{"f":"S4","t":"S7","d":3850,"ds":3035},{"f":"S4","t":"S9","d":1665,"ds":1204},{"f":"S5","t":"S0","d":251120,"ds":250659},{"f":"S5","t":"S3","d":44569,"ds":44569},{"f":"S5","t":"S4","d":22623,"ds":22623},{"f":"S5","t":"S5","d":4908,"ds":4908},{"f":"S5","t":"S6","d":23310,"ds":23310},{"f":"S5","t":"S7","d":4881,"ds":4881},{"f":"S6","t":"S0","d":228463,"ds":227393},{"f":"S6","t":"S6","d":698,"ds":698},{"f":"S6","t":"S7","d":1584,"ds":1584},{"f":"S6","t":"S9","d":8784,"ds":8784},{"f":"S7","t":"S0","d":630,"ds":239},{"f":"S7","t":"S1","d":1946,"ds":1444},{"f":"S7","t":"S4","d":6985,"ds":6643},{"f":"S7","t":"S5","d":74971,"ds":74971},{"f":"S7","t":"S6","d":909,"ds":0},{"f":"S8","t":"S0","d":314,"ds":314},{"f":"S8","t":"S1","d":345808,"ds":345808},{"f":"S8","t":"S2","d":181891,"ds":181891},{"f":"S8","t":"S3","d":444,"ds":444},{"f":"S9","t":"S1","d":2544,"ds":2108},{"f":"S9","t":"S3","d":8371,"ds":7910},{"f":"S9","t":"S4","d":23136,"ds":22230}],"th":20000},"sKill":{"nodes":[{"id":"S0","n":"Initiative DNI","full":"Initiative · Drake Navy","t":"A","b":"a","d":89,"r":104,"ds":65,"rs":70,"k":89,"l":104,"pil":161,"isk":10.64,"ki":52.22},{"id":"S1","n":"HMP Апоки","full":"HMP + xXDEATHXx · Apoc Navy","t":"B","b":"b","d":96,"r":94,"ds":73,"rs":67,"k":96,"l":94,"pil":116,"isk":36.44,"ki":31.35},{"id":"S2","n":"Deepwater Махи","full":"Deepwater · Machariel","t":"B","b":"b","d":61,"r":29,"ds":42,"rs":22,"k":61,"l":29,"pil":112,"isk":29.16,"ki":28.38},{"id":"S3","n":"SoS Найтмары","full":"Synergy of Steel + Frat · Nightmare","t":"A","b":"a","d":43,"r":54,"ds":30,"rs":40,"k":43,"l":54,"pil":108,"isk":34.4,"ki":23.8},{"id":"S4","n":"BoSp Темпесты","full":"BoSp · Tempest Fleet","t":"A","b":"a","d":28,"r":45,"ds":14,"rs":37,"k":28,"l":45,"pil":91,"isk":18.3,"ki":1.7},{"id":"S5","n":"HMP Домики","full":"HMP · Dominix (STAKAN)","t":"B","b":"b","d":27,"r":7,"ds":24,"rs":6,"k":27,"l":7,"pil":17,"isk":4.43,"ki":2.55},{"id":"S6","n":"Wreckflix Апоки","full":"Wreckflix и Ко · Apoc Navy","t":"C","b":"c","d":10,"r":23,"ds":8,"rs":15,"k":10,"l":23,"pil":30,"isk":9.87,"ki":1.21},{"id":"S7","n":"Frat фригаты","full":"Fraternity · фригаты","t":"A","b":"a","d":8,"r":10,"ds":4,"rs":7,"k":8,"l":10,"pil":79,"isk":0.36,"ki":2.1},{"id":"S8","n":"Фортизар BoSp","full":"Фортизар BoSp","t":"A","b":"a","d":0,"r":1,"ds":0,"rs":0,"k":0,"l":1,"pil":0,"isk":0.08,"ki":0},{"id":"S9","n":"Прочие","full":"Прочие","t":"?","b":"o","d":12,"r":7,"ds":8,"rs":4,"k":12,"l":7,"pil":7,"isk":0.32,"ki":0.71}],"edges":[{"f":"S0","t":"S1","d":61,"ds":44},{"f":"S0","t":"S2","d":6,"ds":6},{"f":"S0","t":"S5","d":2,"ds":1},{"f":"S0","t":"S6","d":17,"ds":13},{"f":"S0","t":"S7","d":2,"ds":1},{"f":"S0","t":"S9","d":1,"ds":0},{"f":"S1","t":"S0","d":67,"ds":52},{"f":"S1","t":"S2","d":1,"ds":0},{"f":"S1","t":"S3","d":15,"ds":11},{"f":"S1","t":"S4","d":11,"ds":9},{"f":"S1","t":"S6","d":1,"ds":0},{"f":"S1","t":"S9","d":1,"ds":1},{"f":"S2","t":"S0","d":11,"ds":5},{"f":"S2","t":"S1","d":2,"ds":0},{"f":"S2","t":"S2","d":1,"ds":0},{"f":"S2","t":"S3","d":27,"ds":20},{"f":"S2","t":"S4","d":17,"ds":15},{"f":"S2","t":"S6","d":1,"ds":1},{"f":"S2","t":"S7","d":1,"ds":1},{"f":"S2","t":"S8","d":1,"ds":0},{"f":"S3","t":"S0","d":6,"ds":1},{"f":"S3","t":"S1","d":15,"ds":12},{"f":"S3","t":"S2","d":13,"ds":12},{"f":"S3","t":"S3","d":1,"ds":0},{"f":"S3","t":"S4","d":3,"ds":1},{"f":"S3","t":"S5","d":3,"ds":3},{"f":"S3","t":"S9","d":2,"ds":1},{"f":"S4","t":"S0","d":2,"ds":0},{"f":"S4","t":"S1","d":11,"ds":8},{"f":"S4","t":"S2","d":8,"ds":4},{"f":"S4","t":"S3","d":1,"ds":0},{"f":"S4","t":"S6","d":1,"ds":0},{"f":"S4","t":"S7","d":3,"ds":1},{"f":"S4","t":"S9","d":2,"ds":1},{"f":"S5","t":"S0","d":9,"ds":6},{"f":"S5","t":"S3","d":6,"ds":6},{"f":"S5","t":"S4","d":8,"ds":8},{"f":"S5","t":"S6","d":1,"ds":1},{"f":"S5","t":"S7","d":3,"ds":3},{"f":"S6","t":"S0","d":8,"ds":6},{"f":"S6","t":"S7","d":1,"ds":1},{"f":"S6","t":"S9","d":1,"ds":1},{"f":"S7","t":"S0","d":1,"ds":0},{"f":"S7","t":"S1","d":2,"ds":1},{"f":"S7","t":"S4","d":1,"ds":1},{"f":"S7","t":"S5","d":2,"ds":2},{"f":"S7","t":"S6","d":2,"ds":0},{"f":"S9","t":"S1","d":3,"ds":2},{"f":"S9","t":"S3","d":4,"ds":3},{"f":"S9","t":"S4","d":5,"ds":3}],"th":2},"aDmg":{"nodes":[{"id":"99012122","n":"HOLD MY PROBS","full":"HOLD MY PROBS (вместе со STAKAN UNIVERSE)","t":"B","b":"b","d":3067454,"r":3953133,"ds":3060148,"rs":3944413,"k":68,"l":79,"pil":95,"isk":41.44,"ki":20.91},{"id":"1900696668","n":"The Initiative.","full":"The Initiative.","t":"A","b":"a","d":3700819,"r":2717794,"ds":3693203,"rs":2705116,"k":86,"l":100,"pil":144,"isk":10.44,"ki":36.91},{"id":"99009927","n":"Deepwater Hooligans","full":"Deepwater Hooligans","t":"B","b":"b","d":3441527,"r":1752720,"ds":3394337,"rs":1616949,"k":51,"l":23,"pil":102,"isk":19.65,"ki":28.17},{"id":"99007887","n":"Brotherhood of Spacers","full":"Brotherhood of Spacers","t":"A","b":"a","d":1741420,"r":1725643,"ds":1616980,"rs":1679543,"k":30,"l":42,"pil":80,"isk":12.47,"ki":17.01},{"id":"99002685","n":"Synergy of Steel","full":"Synergy of Steel","t":"A","b":"a","d":1081683,"r":1355148,"ds":1081222,"rs":1350504,"k":22,"l":36,"pil":69,"isk":21.52,"ki":18.85},{"id":"1411711376","n":"Legion of xXDEATHXx","full":"Legion of xXDEATHXx","t":"B","b":"b","d":927210,"r":982092,"ds":923385,"rs":979783,"k":34,"l":28,"pil":25,"isk":8.94,"ki":10.44},{"id":"99003581","n":"Fraternity.","full":"Fraternity.","t":"A","b":"a","d":568007,"r":913782,"ds":561240,"rs":910860,"k":25,"l":28,"pil":95,"isk":11.97,"ki":2.18},{"id":"99014203","n":"Wreckflix and chill","full":"Wreckflix and chill","t":"C","b":"c","d":114512,"r":704667,"ds":114396,"rs":702160,"k":3,"l":17,"pil":14,"isk":7.43,"ki":0.32},{"id":"99005065","n":"Hard Knocks Citizens","full":"Hard Knocks Citizens","t":"A","b":"a","d":23529,"r":592602,"ds":14922,"rs":592602,"k":0,"l":2,"pil":2,"isk":1.76,"ki":0},{"id":"431502563","n":"Ministry of Inappropr…","full":"Ministry of Inappropriate Footwork","t":"C","b":"c","d":92289,"r":112867,"ds":91680,"rs":112406,"k":3,"l":3,"pil":5,"isk":1.29,"ki":0.33},{"id":"1727758877","n":"Northern Coalition.","full":"Northern Coalition.","t":"A","b":"a","d":19402,"r":171228,"ds":19011,"rs":171228,"k":1,"l":1,"pil":8,"isk":1.49,"ki":0},{"id":"99005393","n":"Blades of Grass","full":"Blades of Grass","t":"A","b":"a","d":5947,"r":175805,"ds":5947,"rs":175805,"k":3,"l":1,"pil":2,"isk":1.4,"ki":3.78},{"id":"99007969","n":"THE RUSSIA","full":"THE RUSSIA","t":"B","b":"b","d":169019,"r":0,"ds":167633,"rs":0,"k":5,"l":0,"pil":3,"isk":0,"ki":0.1},{"id":"498125261","n":"Test Alliance Please …","full":"Test Alliance Please Ignore","t":"A","b":"a","d":155017,"r":0,"ds":155017,"rs":0,"k":1,"l":0,"pil":6,"isk":0,"ki":1.1},{"id":"99004804","n":"DarkSide.","full":"DarkSide.","t":"A","b":"a","d":152527,"r":0,"ds":152333,"rs":0,"k":0,"l":0,"pil":1,"isk":0,"ki":0},{"id":"1042504553","n":"Solyaris Chtonium","full":"Solyaris Chtonium","t":"A","b":"a","d":19125,"r":104607,"ds":19125,"rs":104607,"k":0,"l":1,"pil":1,"isk":1.47,"ki":0},{"id":"99014321","n":"Tilean Dominium","full":"Tilean Dominium","t":"A","b":"a","d":2872,"r":102920,"ds":2872,"rs":102920,"k":0,"l":1,"pil":2,"isk":0.88,"ki":0},{"id":"99012845","n":"BorderZone","full":"BorderZone","t":"C","b":"c","d":15389,"r":25165,"ds":15389,"rs":25165,"k":2,"l":1,"pil":3,"isk":1.14,"ki":0.19}],"edges":[{"f":"99009927","t":"99007887","d":906377,"ds":863023},{"f":"99009927","t":"99014321","d":102584,"ds":102584},{"f":"99009927","t":"99005065","d":581212,"ds":581212},{"f":"99009927","t":"99002685","d":681427,"ds":679499},{"f":"99009927","t":"99003581","d":647785,"ds":647325},{"f":"99009927","t":"99005393","d":174770,"ds":174770},{"f":"99009927","t":"1042504553","d":103571,"ds":103571},{"f":"99009927","t":"1727758877","d":100453,"ds":100453},{"f":"99009927","t":"1900696668","d":125957,"ds":125019},{"f":"99012122","t":"99007887","d":554861,"ds":554255},{"f":"99012122","t":"99002685","d":481742,"ds":479951},{"f":"99012122","t":"99003581","d":177529,"ds":177529},{"f":"99012122","t":"99012122","d":57706,"ds":56354},{"f":"99012122","t":"1727758877","d":48564,"ds":48564},{"f":"99012122","t":"99014203","d":23804,"ds":23310},{"f":"99012122","t":"1900696668","d":1695752,"ds":1692689},{"f":"99002685","t":"99012122","d":530340,"ds":530340},{"f":"99002685","t":"99009927","d":398799,"ds":398338},{"f":"99002685","t":"1411711376","d":149738,"ds":149738},{"f":"99003581","t":"99012122","d":321258,"ds":319759},{"f":"99003581","t":"99009927","d":142746,"ds":142503},{"f":"99003581","t":"1411711376","d":89325,"ds":89325},{"f":"498125261","t":"99012122","d":87232,"ds":87232},{"f":"498125261","t":"99009927","d":49636,"ds":49636},{"f":"99004804","t":"99007887","d":39116,"ds":39116},{"f":"99004804","t":"99012122","d":53335,"ds":53141},{"f":"99004804","t":"1411711376","d":34671,"ds":34671},{"f":"99007887","t":"99009927","d":969986,"ds":850515},{"f":"99007887","t":"99012122","d":745468,"ds":744538},{"f":"99005065","t":"99009927","d":23529,"ds":14922},{"f":"1411711376","t":"99002685","d":153476,"ds":153476},{"f":"1411711376","t":"99007887","d":158467,"ds":158154},{"f":"1411711376","t":"99003581","d":59422,"ds":59422},{"f":"1411711376","t":"1900696668","d":533894,"ds":530382},{"f":"99007969","t":"99007887","d":26329,"ds":26329},{"f":"99007969","t":"1900696668","d":115410,"ds":114949},{"f":"1900696668","t":"99012122","d":2115408,"ds":2110663},{"f":"1900696668","t":"99009927","d":99305,"ds":99305},{"f":"1900696668","t":"99014203","d":679515,"ds":678411},{"f":"1900696668","t":"1411711376","d":664745,"ds":663794},{"f":"1900696668","t":"431502563","d":110962,"ds":110962},{"f":"1900696668","t":"99012845","d":25165,"ds":25165},{"f":"431502563","t":"1900696668","d":87132,"ds":86523},{"f":"99014203","t":"1900696668","d":112242,"ds":112126}],"th":20000}};
+
+const COL={a:'var(--a)',b:'var(--b)',c:'var(--c)',o:'var(--o)'};
+const RGB={a:'var(--a-rgb)',b:'var(--b-rgb)',c:'var(--c-rgb)',o:'var(--o-rgb)'};
+const SIDEB={A:'a',B:'b',C:'c','?':'o'};
+const SIDEN={A:'Initiative, BoSp, SoS, Fraternity',B:'HMP (со STAKAN), Deepwater, xXDEATHXx',C:'Wreckflix and chill и Ко','?':'третьи лица'};
+const nf=n=>Math.round(n).toLocaleString('ru-RU');
+const fk=n=>n>=1e6?(n/1e6).toFixed(2)+'m':n>=1e3?Math.round(n/1e3)+'k':String(Math.round(n));
+const fb=n=>(n/1e9).toFixed(1)+'b';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=id=>document.getElementById(id);
+
+const tip=$('tip');
+function bindTip(el,title,body){
+  const show=e=>{tip.innerHTML='<span class="t">'+title+'</span>'+body; tip.style.opacity='1';
+    const r=tip.getBoundingClientRect(), x=e.clientX||0, y=e.clientY||0;
+    tip.style.left=Math.min(Math.max(8,x+16), innerWidth-r.width-8)+'px';
+    tip.style.top=Math.max(8,y-r.height-14)+'px';};
+  el.addEventListener('mousemove',show);
+  el.addEventListener('mouseleave',()=>tip.style.opacity='0');
+  el.addEventListener('focus',()=>{const b=el.getBoundingClientRect(); show({clientX:b.left+b.width/2,clientY:b.top+10});});
+  el.addEventListener('blur',()=>tip.style.opacity='0');
+  el.setAttribute('tabindex','0');
+}
+
+const M=C.meta, ST=C.stacks;
+const real=ST.filter(s=>s.kind==='stack');
+const find=re=>ST.find(s=>re.test(s.label));
+
+/* ---------- шапка ---------- */
+$('eyebrow').textContent='MTO2-2 · 31 октября 2026 · '+M.from+'–'+M.to+' UTC · '+M.kms+' килмылов';
+$('hsub').innerHTML='Бой на '+M.kms+' килмылов и <b>'+M.isk+'b ISK</b>, '+M.pods+' из них капсулы. Пилотов разложили по <b>стакам</b>: кто вместе стоял на одних килмылах, тот один флот. Ниже видно, какой стак по какому стрелял, когда он был в бою и что потерял.';
+$('sides').innerHTML=['A','B','C'].map(t=>{const o=C.sides[t]; if(!o)return '';
+  const eff=o.killISK/(o.killISK+o.lostISK)*100;
+  return '<div class="side" style="--k:'+COL[SIDEB[t]]+'"><div class="lab">Сторона '+t+'</div><div class="who">'+SIDEN[t]+'</div><dl>'
+   +'<dt>пилотов</dt><dd><b>'+o.pil+'</b></dd>'
+   +'<dt>потеряно</dt><dd><b>'+fb(o.lostISK)+'</b> · '+o.lost+' корп.</dd>'
+   +'<dt>уничтожено</dt><dd><b>'+fb(o.killISK)+'</b></dd>'
+   +'<dt>эффективность</dt><dd><b>'+eff.toFixed(0)+'%</b></dd></dl></div>';}).join('');
+$('movedList').textContent=Object.entries(M.moved).filter(([n,v])=>!n.startsWith('#')).map(([n,v])=>n+' ('+v[0]+'→'+v[1]+')').join(', ');
+
+/* ---------- STAKAN и Deepwater ---------- */
+(function(){
+  const S=find(/Dominix/), DW=find(/Deepwater/), HMP=find(/Apoc Navy/);
+  const co=C.co[S.i], own=S.onkm;
+  const tgt=C.Md[S.i].map((d,j)=>({j,d})).filter(x=>x.d>0&&x.j!==S.i).sort((a,b)=>b.d-a.d);
+  const tgtDW=C.Md[DW.i].map((d,j)=>({j,d})).filter(x=>x.d>0&&ST[x.j].side!==DW.side).sort((a,b)=>b.d-a.d);
+  const totS=tgt.reduce((a,x)=>a+x.d,0), totDW=tgtDW.reduce((a,x)=>a+x.d,0);
+  const row=(lab,v,mx,k)=>'<div class="lrow" style="--k:'+k+'"><span class="pair">'+lab+'</span><span class="track"><span class="fill" style="width:'+(100*v/mx).toFixed(1)+'%"></span></span><span class="v">'+v+'</span></div>';
+  const cos=ST.map((s,j)=>({s,n:co[j]})).filter(x=>x.n>0).sort((a,b)=>b.n-a.n);
+  const mxc=Math.max(...cos.map(x=>x.n),1);
+  const rowk=(lab,v,mx,k,txt)=>'<div class="lrow" style="--k:'+k+'"><span class="pair">'+lab+'</span><span class="track"><span class="fill" style="width:'+(100*v/mx).toFixed(1)+'%"></span></span><span class="v">'+txt+'</span></div>';
+  const ini=tgt.find(x=>/Initiative/.test(ST[x.j].label));
+  $('verdict').innerHTML=
+    '<div class="q">Доминиксы HMP (бывший STAKAN UNIVERSE) <span class="no">не стояли стаком с Deepwater</span>: они работали вместе с Апоками своего же альянса.</div>'
+   +'<div class="vgrid">'
+   +'<div><div class="vcap">С кем Доминиксы стояли на килмылах · из '+own+'</div><div class="links">'
+   +cos.map(x=>row(esc(x.s.short),x.n,mxc,COL[x.s.b])).join('')+'</div></div>'
+   +'<div><div class="vcap">По кому стрелял · урон по кораблям</div><div class="links">'
+   +tgt.slice(0,5).map(x=>rowk(esc(ST[x.j].short),x.d,tgt[0].d,COL[ST[x.j].b],fk(x.d))).join('')+'</div></div>'
+   +'</div>'
+   +'<p>С Deepwater Hooligans HMP был на одной стороне: оба в команде B, на одном гриде, друг по другу не стреляли. Но отряд Доминиксов (пилоты STAKAN UNIVERSE, '+S.n+' человек, '+(S.ships[0]||['',0])[1]+' на Доминиксах, мультибокс-семья Moonpire) в один стак с Deepwater не попадает. На '+own+' килмылах, где Доминиксы дали хотя бы 5% урона, рядом стояли <b>Апоки HMP — '+co[HMP.i]+' раз</b>, а <b>Махариелы Deepwater — '+co[DW.i]+'</b>.</p>'
+   +'<p>Цели тоже разные. '+(ini?'<b>'+Math.round(100*ini.d/totS)+'% урона Доминиксов ушло в Drake Navy Initiative</b>, которые пришли только в 20:09. ':'')+'Deepwater к тому времени почти закончил: '+Math.round(100*(tgtDW.filter(x=>/SoS|BoSp/.test(ST[x.j].short)).reduce((a,x)=>a+x.d,0))/totDW)+'% его урона пришлось на Найтмары SoS и Темпесты BoSp, почти весь в первые 20 минут. Вместе с Deepwater Доминиксы работали только в начале, когда набили всего ~70k урона.</p>';
+})();
+
+/* ---------- карточки стаков ---------- */
+$('stacksTag').textContent=real.length+' стаков · модулярность '+M.mod;
+$('cards').innerHTML=ST.filter(s=>s.kind!=='other').map(s=>{
+  const k=COL[s.b];
+  const ships=s.kind==='struct'
+    ? s.ships.map(([n,d])=>'<span>'+esc(n.replace(/^.*· /,''))+'<i>'+fk(d)+'</i></span>').join('')
+    : s.ships.slice(0,6).map(([n,c])=>'<span>'+esc(n)+'<i>'+c+'</i></span>').join('');
+  const al=s.kind==='struct'?'':s.allys.slice(0,5).map(([n,c])=>'<span>'+esc(n)+'<i>'+c+'</i></span>').join('');
+  return '<article class="card" style="--k:'+k+'">'
+   +'<div class="top"><span class="pill">'+s.side+'</span><h3>'+esc(s.label)+'</h3><span class="n">'+(s.kind==='struct'?'структура':s.n+' пил.')+'</span></div>'
+   +'<div class="when">в бою '+s.from+'–'+s.to+' UTC</div>'
+   +'<div class="kv"><div><span>нанёс</span><b>'+fk(s.dealtShips)+'</b></div><div><span>получил</span><b>'+fk(s.recvShips)+'</b></div>'
+   +'<div><span>добил</span><b>'+s.kills+'</b></div><div><span>потерял</span><b class="bad">'+s.lost+'</b></div>'
+   +'<div><span>снял ISK</span><b>'+fb(s.killISK)+'</b></div><div><span>слил ISK</span><b class="bad">'+fb(s.lostISK)+'</b></div></div>'
+   +'<div class="tags">'+ships+'</div>'
+   +(al?'<div class="tags">'+al+'</div>':'')
+   +(s.kind==='stack'?'<details><summary>пилоты ('+s.n+')</summary><div class="plist">'+s.pilots.map(esc).join(', ')+'</div></details>':'')
+   +'</article>';}).join('');
+
+/* ---------- круги ---------- */
+function circleSection(host,cfg){
+  const sec=$(host);
+  const chips=['A','B','C'].map(t=>'<span class="chip" style="--k:'+COL[SIDEB[t]]+'"><span class="dot"></span>'+t+' — '+SIDEN[t]+'</span>').join('');
+  sec.innerHTML='<div class="shead"><h2>'+cfg.h+'</h2><span class="tag">'+cfg.tag+'</span></div>'
+   +(cfg.lead?'<p class="lead">'+cfg.lead+'</p>':'')
+   +'<div class="bar">'+chips+'<span class="toggles">'
+   +(cfg.kinds?'<span class="grp"><button class="tg" data-k="dmg" aria-pressed="true">урон</button><button class="tg" data-k="kill" aria-pressed="false">добивания</button></span>':'')
+   +'<span class="grp"><button class="tg" data-m="all" aria-pressed="true">все связи</button><button class="tg" data-m="enemy" aria-pressed="false">только по врагу</button></span>'
+   +'<span class="grp"><button class="tg" data-s="all" aria-pressed="false">с капсулами</button><button class="tg" data-s="ships" aria-pressed="true">только корабли</button></span>'
+   +'</span></div><div class="stage"></div><p class="hint">'+cfg.hint+'</p>'
+   +'<div class="sublinks"><div class="cap">Самые толстые ленты — топ-14</div><div class="links"></div></div>';
+  const st={kind:'dmg',mode:'all',scope:'ships'};
+  sec.querySelectorAll('button.tg').forEach(b=>b.onclick=()=>{
+    [].forEach.call(b.parentNode.children,x=>x.setAttribute('aria-pressed',String(x===b)));
+    if(b.dataset.k)st.kind=b.dataset.k; else if(b.dataset.m)st.mode=b.dataset.m; else st.scope=b.dataset.s;
+    draw();});
+  function draw(){ mount(sec, st.kind==='dmg'?cfg.dmg:cfg.kill, st); }
+  draw();
+}
+
+function mount(sec,D,st){
+  const stage=sec.querySelector('.stage'), linksEl=sec.querySelector('.links');
+  const kind=st.kind, mode=st.mode, scope=st.scope;
+  const byId={}; D.nodes.forEach(n=>byId[n.id]=n);
+  const fmt=kind==='dmg'?fk:(n=>String(n));
+  const th=D.th;
+  const CX=500, CY=505, R=318;
+  const order=['A','B','C','?'];
+  const groups=order.map(t=>({t,list:D.nodes.filter(n=>n.t===t).sort((a,b)=>b.d-a.d)})).filter(g=>g.list.length);
+  const total=D.nodes.length, GAP=0.16;
+  const span=2*Math.PI-GAP*groups.length;
+  let ang=-Math.PI/2+GAP/2;
+  const pos={}, arcs=[];
+  for(const g of groups){
+    const share=span*(g.list.length/total), step=share/g.list.length, a0=ang;
+    g.list.forEach((n,i)=>{pos[n.id]=ang+step*(i+0.5);});
+    ang+=share+GAP; arcs.push({b:g.list[0].b,a0,a1:a0+share});
+  }
+  const val=e=>scope==='ships'?e.ds:e.d, nval=n=>scope==='ships'?n.ds:n.d, nrec=n=>scope==='ships'?n.rs:n.r;
+  const maxScore=Math.max(...D.nodes.map(n=>n.d+n.r),1);
+  const NR={}; D.nodes.forEach(n=>NR[n.id]=7+30*Math.sqrt((n.d+n.r)/maxScore));
+  const P=a=>[CX+R*Math.cos(a), CY+R*Math.sin(a)];
+  function ribbon(e,maxE){
+    const af=pos[e.f], at=pos[e.t], rf=NR[e.f], rt=NR[e.t];
+    const [fx,fy]=P(af), [tx,ty]=P(at);
+    const fnx=Math.cos(af), fny=Math.sin(af), tnx=Math.cos(at), tny=Math.sin(at);
+    const sx=fx-fnx*rf, sy=fy-fny*rf, ex=tx-tnx*rt, ey=ty-tny*rt;
+    const w=(2.5+27*Math.pow(val(e)/maxE,0.62))/2, w2=Math.max(1.1,w*0.16);
+    const px=-fny, py=fnx, qx=-tny, qy=tnx;
+    const cx=CX+(sx+ex-2*CX)*0.16, cy=CY+(sy+ey-2*CY)*0.16;
+    return 'M'+(sx+px*w).toFixed(1)+' '+(sy+py*w).toFixed(1)+'Q'+cx.toFixed(1)+' '+cy.toFixed(1)+' '+(ex+qx*w2).toFixed(1)+' '+(ey+qy*w2).toFixed(1)
+      +'L'+(ex-qx*w2).toFixed(1)+' '+(ey-qy*w2).toFixed(1)+'Q'+cx.toFixed(1)+' '+cy.toFixed(1)+' '+(sx-px*w).toFixed(1)+' '+(sy-py*w).toFixed(1)+'Z';
+  }
+  const edges=D.edges.filter(e=>e.f!==e.t&&val(e)>=th&&(mode==='all'||byId[e.f].t!==byId[e.t].t)).sort((a,b)=>val(b)-val(a));
+  const maxE=Math.max(...edges.map(val),1);
+  let s='';
+  for(const a of arcs){
+    const rr=R+70, x0=CX+rr*Math.cos(a.a0), y0=CY+rr*Math.sin(a.a0), x1=CX+rr*Math.cos(a.a1), y1=CY+rr*Math.sin(a.a1);
+    s+='<path d="M'+x0.toFixed(1)+' '+y0.toFixed(1)+'A'+rr+' '+rr+' 0 '+((a.a1-a.a0)>Math.PI?1:0)+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+'" style="fill:none;stroke:'+COL[a.b]+';stroke-width:2.5;opacity:.5;stroke-linecap:round"/>';
+  }
+  for(const e of edges.slice().sort((x,y)=>val(x)-val(y))){
+    const own=byId[e.f].t===byId[e.t].t;
+    s+='<path class="edge" data-f="'+e.f+'" data-t="'+e.t+'" data-d="'+val(e)+'" d="'+ribbon(e,maxE)+'" style="fill:rgba('+RGB[byId[e.f].b]+','+(own?0.28:0.42)+')'
+      +(own?';stroke:'+COL[byId[e.f].b]+';stroke-width:.7;stroke-dasharray:4 3':'')+'"/>';
+  }
+  for(const n of D.nodes){
+    const a=pos[n.id], [x,y]=P(a), r=NR[n.id];
+    const anc=Math.cos(a)>0.02?'start':(Math.cos(a)<-0.02?'end':'middle');
+    const lx=x+Math.cos(a)*(r+11), ly=y+Math.sin(a)*(r+11);
+    const dy1=Math.abs(Math.cos(a))<0.02?(Math.sin(a)>0?12:-4):4, dy2=Math.abs(Math.cos(a))<0.02?(Math.sin(a)>0?26:10):18;
+    const dim=(nval(n)+nrec(n))===0?';opacity:.35':'';
+    s+='<g class="node" data-id="'+n.id+'"><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r.toFixed(1)+'" style="fill:rgba('+RGB[n.b]+',.92);stroke:var(--panel);stroke-width:2'+dim+'"/>'
+      +'<text class="nlabel" x="'+lx.toFixed(1)+'" y="'+(ly+dy1).toFixed(1)+'" text-anchor="'+anc+'">'+esc(n.n)+'</text>'
+      +'<text class="nsub" x="'+lx.toFixed(1)+'" y="'+(ly+dy2).toFixed(1)+'" text-anchor="'+anc+'">'+fmt(nval(n))+' ↑ · '+fmt(nrec(n))+' ↓</text></g>';
+  }
+  stage.innerHTML='<svg viewBox="-80 -20 1160 1060" role="img" aria-label="'+(kind==='dmg'?'Круг: кто по кому наносил урон':'Круг: кто кого добивал')+'">'+s+'</svg>';
+  const svg=stage.firstElementChild;
+  const focus=id=>{svg.querySelectorAll('.edge').forEach(p=>p.style.opacity=(p.dataset.f===id||p.dataset.t===id)?1:.07);
+    svg.querySelectorAll('.node circle').forEach(c=>{const nid=c.parentNode.dataset.id;
+      c.style.opacity=(nid===id||edges.some(e=>(e.f===id&&e.t===nid)||(e.t===id&&e.f===nid)))?1:.25;});};
+  const clear=()=>{svg.querySelectorAll('.edge,.node circle').forEach(p=>p.style.opacity='');};
+  svg.querySelectorAll('.edge').forEach(p=>{
+    const f=byId[p.dataset.f], t=byId[p.dataset.t], v=+p.dataset.d;
+    bindTip(p,f.t===t.t?'внутри стороны '+f.t:f.t+' → '+t.t,'<b>'+esc(f.full)+'</b> → <b>'+esc(t.full)+'</b><br>'+nf(v)+(kind==='dmg'?' урона':' добиваний'));
+    p.addEventListener('mouseenter',()=>focus(p.dataset.f)); p.addEventListener('mouseleave',clear);
+  });
+  svg.querySelectorAll('.node').forEach(g=>{
+    const n=byId[g.dataset.id];
+    const body=kind==='dmg'
+      ? '<b>'+esc(n.full)+'</b><br>нанёс '+nf(n.d)+' · получил '+nf(n.r)+'<br>по кораблям: '+nf(n.ds)+' ↑ · '+nf(n.rs)+' ↓<br>потерял '+n.l+' · '+n.isk.toFixed(2)+'b'+(n.pil?' · пилотов '+n.pil:'')
+      : '<b>'+esc(n.full)+'</b><br>добил '+n.d+' (кораблей '+n.ds+')<br>потерял '+n.r+' · '+n.isk.toFixed(2)+'b<br>снял на '+n.ki.toFixed(2)+'b';
+    bindTip(g.querySelector('circle'),'сторона '+n.t,body);
+    g.addEventListener('mouseenter',()=>focus(n.id)); g.addEventListener('mouseleave',clear);
+    g.addEventListener('focus',()=>focus(n.id),true); g.addEventListener('blur',clear,true);
+  });
+  const top=edges.slice(0,14), mx=top.length?val(top[0]):1;
+  linksEl.innerHTML=top.map(e=>{const f=byId[e.f], t=byId[e.t], own=f.t===t.t;
+    return '<div class="lrow" style="--k:'+COL[f.b]+'"><span class="pair">'+esc(f.n)+' <span class="to">→</span> '+esc(t.n)+'</span>'
+      +'<span class="track"><span class="fill" style="width:'+(100*val(e)/mx).toFixed(1)+'%"></span></span><span class="v'+(own?' own':'')+'">'+fmt(val(e))+'</span></div>';}).join('')
+    ||'<div class="lrow"><span class="pair" style="color:var(--ink-3)">связей выше порога нет</span></div>';
+}
+
+const SNAME=re=>(find(re)||{}).short;
+circleSection('flow',{h:'Стак → стак',tag:'урон и добивания',kinds:true,dmg:C.sDmg,kill:C.sKill,
+  lead:'Тот же круг, что в прошлых разборах, только пузырь теперь не альянс, а стак. Лента идёт <b>широким концом от стрелявшего</b> и сходится в точку у цели, цвет — сторона стрелка. Наведи на пузырь, чтобы оставить только его связи.',
+  hint:'По умолчанию показан урон только по кораблям; связи слабее 20k урона (или одного добивания) скрыты. Главная лента боя — <b>'+SNAME(/Initiative/)+' → '+SNAME(/Apoc Navy/)+'</b>: Drake Navy Initiative влили в Апоки HMP '+fk(C.Md[find(/Initiative/).i][find(/Apoc Navy/).i])+'. Deepwater почти весь урон отдал <b>Темпестам BoSp и Найтмарам SoS</b> ещё до прихода Initiative.'});
+circleSection('allys',{h:'По альянсам',tag:'как в прошлых разборах',kinds:false,dmg:C.aDmg,
+  lead:'Для сравнения с сентябрьскими разборами — круг по альянсам, 18 самых активных. Сторона альянса взята из разметки репорта с поправкой по данным.',
+  hint:'Альянсовый круг смазывает картину: Fraternity здесь один пузырь, хотя в бою это три разных куска (пилоты в стаке SoS, фригатная банда и одиночки в стаке Initiative). Поэтому для вопроса «кто в кого» смотри стаки выше.'});
+
+/* ---------- таймлайн ---------- */
+(function(){
+  const T=C.tl, rows=ST.filter(s=>s.kind!=='other'&&T.dmg[s.i].some(v=>v>0));
+  const L=196, W=1000, RH=46, top=34, nb=T.nb, bw=(W-L-16)/nb;
+  const maxD=Math.max(...rows.flatMap(s=>T.dmg[s.i]),1), maxL=Math.max(...rows.flatMap(s=>T.loss[s.i]),1);
+  const H=top+rows.length*RH+30;
+  const tx=b=>L+b*bw;
+  const tm=b=>{const d=new Date(T.t0+b*T.bin);return d.toISOString().slice(11,16);};
+  const binOf=hhmm=>{const [h,m]=hhmm.split(':').map(Number);const d=new Date(T.t0);d.setUTCHours(h,m,0,0);return (d-T.t0)/T.bin;};
+  let s='';
+  const ph=[['19:41','20:00','ФАЗА 1 · Deepwater + HMP против SoS и BoSp'],['20:08','20:41','ФАЗА 2 · Initiative против HMP']];
+  for(const [a,b,lab] of ph){const x0=tx(Math.max(0,binOf(a))),x1=tx(binOf(b));
+    s+='<rect x="'+x0.toFixed(1)+'" y="'+(top-8)+'" width="'+(x1-x0).toFixed(1)+'" height="'+(H-top-14)+'" style="fill:var(--panel-2)"/>'
+     +'<text class="phase" x="'+(x0+6).toFixed(1)+'" y="'+(top-14)+'">'+lab+'</text>';}
+  for(let b=0;b<=nb;b+=5){const x=tx(b); s+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+(top-8)+'" y2="'+(H-22)+'" style="stroke:var(--line);stroke-width:1"/><text x="'+x.toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle">'+tm(b)+'</text>';}
+  rows.forEach((st,r)=>{
+    const y0=top+r*RH, mid=y0+RH*0.62;
+    s+='<line x1="'+L+'" x2="'+(W-16)+'" y1="'+mid+'" y2="'+mid+'" style="stroke:var(--line-2);stroke-width:1"/>';
+    s+='<rect x="0" y="'+(mid-13)+'" width="4" height="16" rx="1" style="fill:'+COL[st.b]+'"/>';
+    s+='<text class="rowlab" x="12" y="'+(mid-1)+'">'+esc(st.short)+'</text>';
+    T.dmg[st.i].forEach((v,b)=>{ if(!v)return; const h=Math.max(1.5,(RH*0.58)*Math.sqrt(v/maxD));
+      s+='<rect class="tb" data-r="'+st.i+'" data-b="'+b+'" x="'+(tx(b)+0.8).toFixed(1)+'" y="'+(mid-h).toFixed(1)+'" width="'+(bw-1.6).toFixed(1)+'" height="'+h.toFixed(1)+'" style="fill:'+COL[st.b]+'"/>';});
+    T.loss[st.i].forEach((v,b)=>{ if(!v)return; const h=Math.max(1.5,(RH*0.3)*Math.sqrt(v/maxL));
+      s+='<rect class="tb" data-r="'+st.i+'" data-b="'+b+'" x="'+(tx(b)+0.8).toFixed(1)+'" y="'+(mid+1)+'" width="'+(bw-1.6).toFixed(1)+'" height="'+h.toFixed(1)+'" style="fill:var(--loss)"/>';});
+  });
+  $('tlStage').innerHTML='<svg class="tl" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Урон и потери каждого стака по времени">'+s+'</svg>';
+  $('tlStage').querySelectorAll('.tb').forEach(el=>{const st=ST[+el.dataset.r], b=+el.dataset.b;
+    bindTip(el,tm(b)+'–'+tm(b+1)+' UTC','<b>'+esc(st.short)+'</b><br>нанёс '+nf(T.dmg[st.i][b])+'<br>потерял '+fb(T.loss[st.i][b]));});
+  const DW=find(/Deepwater/), INI=find(/Initiative/);
+  const before=a=>a.slice(0,Math.floor(binOf('20:05'))).reduce((x,y)=>x+y,0);
+  $('timeLead').innerHTML='Бой распадается на две волны с паузой около 20:00–20:08. В первой <b>Deepwater нанёс '+Math.round(100*before(T.dmg[DW.i])/T.dmg[DW.i].reduce((a,b)=>a+b,0))+'% всего своего урона</b> и дальше почти не стрелял. Во второй пришли Drake Navy Initiative: до 20:09 у них ноль урона, после — '+fk(T.dmg[INI.i].reduce((a,b)=>a+b,0))+'. Фортизар BoSp и его истребители стреляли около 20:13 и 20:23; часть ближнего боя шла у структуры, в ~5 000 км от основного грида.';
+})();
+
+/* ---------- матрица ---------- */
+(function(){
+  const rows=ST.filter(s=>s.kind!=='other');
+  const mx=Math.max(...rows.flatMap(a=>rows.map(b=>a.side!==b.side?C.Md[a.i][b.i]:0)),1);
+  let h='<table class="mx"><thead><tr><th class="rh">стрелял ↓ · получал →</th>'+rows.map(s=>'<th style="color:'+COL[s.b]+'">'+esc(s.short)+'</th>').join('')+'</tr></thead><tbody>';
+  for(const a of rows){
+    h+='<tr><th class="rh"><span class="dot" style="--k:'+COL[a.b]+';display:inline-block;margin-right:7px"></span>'+esc(a.short)+'</th>';
+    for(const b of rows){const v=C.Md[a.i][b.i], own=a.side===b.side;
+      if(v<1000){h+='<td class="z">·</td>';continue;}
+      const al=own?0.06:(0.1+0.6*Math.sqrt(v/mx));
+      h+='<td style="background:rgba('+RGB[a.b]+','+al.toFixed(2)+')'+(own?';color:var(--ink-3)':'')+'">'+Math.round(v/1000)+'</td>';}
+    h+='</tr>';
+  }
+  $('mxStage').innerHTML=h+'</tbody></table>';
+})();
+</script>
