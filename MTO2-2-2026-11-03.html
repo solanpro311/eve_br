@@ -10,7 +10,7 @@
 /* Та же серия, что разборы B6-XE8 и 1I5-0V: светлый «планшет» с тремя цветами сторон, круги связей, моно-цифры. */
 :root{
   color-scheme: light;
-  --bg:#e7eaee; --panel:#fbfcfd; --panel-2:#f1f4f7; --sunk:#dfe4e9;
+  --bg:#ffffff; --panel:#fbfcfd; --panel-2:#f1f4f7; --sunk:#dfe4e9;
   --ink:#0f1419; --ink-2:#48545f; --ink-3:#77838f; --line:#d0d7de; --line-2:#bcc5ce;
   --a:#2a78d6; --a-rgb:42,120,214;
   --b:#eb6834; --b-rgb:235,104,52;
@@ -21,19 +21,6 @@
   --f-display:'Unbounded','Golos Text',system-ui,sans-serif;
   --f-body:'Golos Text','Segoe UI',system-ui,sans-serif;
   --f-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme: dark;
-    --bg:#0d1116; --panel:#141a20; --panel-2:#1a212a; --sunk:#0a0e12;
-    --ink:#e6ecf2; --ink-2:#a3b0bd; --ink-3:#78868f; --line:#232c35; --line-2:#313c47;
-    --a:#3987e5; --a-rgb:57,135,229;
-    --b:#d95926; --b-rgb:217,89,38;
-    --c:#199e70; --c-rgb:25,158,112;
-    --o:#6b7684; --o-rgb:107,118,132;
-    --loss:#e0596a; --loss-rgb:224,89,106;
-    --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -20px #000;
-  }
 }
 :root[data-theme="dark"]{
   color-scheme: dark;
